@@ -28,7 +28,6 @@
 		ticker: false,
 		tickerHover: false,
 		adaptiveHeight: false,
-		animateHeight: false,
 		adaptiveHeightSpeed: 500,
 		video: false,
 		useCSS: true,
@@ -42,12 +41,6 @@
 		preventDefaultSwipeX: true,
 		preventDefaultSwipeY: false,
 
-		//DOM Configuration
-		wrapperClass: 'bx-wrapper',
-		viewportClass: 'bx-viewport',
-		controlsSelector: null,
-		directionSelector: null,
-		
 		// PAGER
 		pager: true,
 		pagerType: 'full',
@@ -268,37 +261,6 @@
 				slider.settings.pager = false;
 			}
 			// preload all images, then perform final DOM / CSS modifications that depend on images being loaded
-			el.children().imagesLoaded(function(){
-				// remove the loading DOM element
-				slider.loader.remove();
-				// make el visible
-				el.css('overflow', 'visible');
-
-				// set the left / top position of "el"
-				setSlidePosition();
-				// if "vertical" mode, always use adaptiveHeight to prevent odd behavior
-				if (slider.settings.mode == 'vertical') slider.settings.adaptiveHeight = true;
-				// set the viewport height
-				if (slider.settings.animateHeight){
-					slider.viewport.animate({height: getViewportHeight()}, 200, function(){
-						// onSliderLoad callback
-						slider.settings.onSliderLoad(slider.active.index);
-					});
-				}
-				else{
-					slider.viewport.css({height: getViewportHeight()})
-					slider.settings.onSliderLoad(slider.active.index);
-				}
-				// if auto is true, start the show
-				if (slider.settings.auto && slider.settings.autoStart) initAuto();
-				// if ticker is true, start the ticker
-				if (slider.settings.ticker) initTicker();
-				// if pager is requested, make the appropriate pager link active
-				if (slider.settings.pager) updatePagerActive(slider.settings.startSlide);
-				// check for any updates to the controls (like hideControlOnEnd updates)
-				if (slider.settings.controls) updateDirectionControls();
-				// if touchEnabled is true, setup the touch events
-				if (slider.settings.touchEnabled && !slider.settings.ticker) initTouch();
 			loadElements(preloadSelector, start);
 		}
 
@@ -668,13 +630,13 @@
 			slider.controls.prev.bind('click', clickPrevBind);
 			// if nextSlector was supplied, populate it
 			if(slider.settings.nextSelector){
-				$(slider.settings.nextSelector).bind('click', clickNextBind)
+		        $(slider.settings.nextSelector).bind('click', clickNextBind);
 				//$(slider.settings.nextSelector).append(slider.controls.next);
 			}
 			// if prevSlector was supplied, populate it
 			if(slider.settings.prevSelector){
-				$(slider.settings.prevSelector).bind('click', clickPrevBind)
-				//$(slider.settings.prevSelector).append(slider.controls.prev);
+				$(slider.settings.prevSelector).bind('click', clickPrevBind);
+				// $(slider.settings.prevSelector).append(slider.controls.prev);
 			}
 			// if no custom selectors were supplied
 			if(!slider.settings.nextSelector && !slider.settings.prevSelector){
