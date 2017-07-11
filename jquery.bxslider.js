@@ -719,8 +719,8 @@ BxSlider 4.1.9
 				var title = $(this).find('img:first').attr('title');
 				// append the caption
 				if (title != undefined && ('' + title).length) {
-                    $(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
-                }
+					$(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
+				}
 			});
 		}
 
@@ -1160,27 +1160,30 @@ BxSlider 4.1.9
 		/**
 		 * Window resize event callback
 		 */
-		var resizeWindow = function(e){
-			setTimeout(function () {
+		 var resizeWindow = function(e) {
 			// don't do anything if slider isn't initialized.
-			if(!slider.initialized) return;
-			// get the new window dimens (again, thank you IE)
-			var windowWidthNew = $(window).width();
-			var windowHeightNew = $(window).height();
-			// make sure that it is a true window resize
-			// *we must check this because our dinosaur friend IE fires a window resize event when certain DOM elements
-			// are resized. Can you just die already?*
-			if(windowWidth != windowWidthNew || windowHeight != windowHeightNew){
-				// set the new window dimens
-				windowWidth = windowWidthNew;
-				windowHeight = windowHeightNew;
-				// update all dynamic elements
-				el.redrawSlider();
-				// Call user resize handler
-				slider.settings.onSliderResize.call(el, slider.active.index);
+			if (!slider.initialized) { return; }
+			// Delay if slider working.
+			if (slider.working) {
+				window.setTimeout(resizeWindow, 10);
+			} else {
+				// get the new window dimens (again, thank you IE)
+				var windowWidthNew = $(window).width(),
+				windowHeightNew = $(window).height();
+				// make sure that it is a true window resize
+				// *we must check this because our dinosaur friend IE fires a window resize event when certain DOM elements
+				// are resized. Can you just die already?*
+				if (windowWidth !== windowWidthNew || windowHeight !== windowHeightNew) {
+					// set the new window dimens
+					windowWidth = windowWidthNew;
+					windowHeight = windowHeightNew;
+					// update all dynamic elements
+					el.redrawSlider();
+					// Call user resize handler
+					slider.settings.onSliderResize.call(el, slider.active.index);
+				}
 			}
-			}, 0)
-		}
+		};
 
 		/**
 		 * ===================================================================================
@@ -1395,12 +1398,12 @@ BxSlider 4.1.9
 			}
 		};
 
-        /**
+		/**
 		 * Update sliders height
 		 */
-         el.recalculateHeight = function() {
-            slider.viewport.css('height', getViewportHeight());
-        };
+		 el.recalculateHeight = function() {
+			slider.viewport.css('height', getViewportHeight());
+		};
 
 		/**
 		 * Destroy the current instance of the slider (revert everything back to original state)
