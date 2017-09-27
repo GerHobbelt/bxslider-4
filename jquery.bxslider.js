@@ -1033,7 +1033,9 @@ BxSlider 4.1.9
 
 				if (slider.viewport.get(0).setPointerCapture) {
 					slider.pointerId = orig.pointerId;
-					slider.viewport.get(0).setPointerCapture(slider.pointerId);
+					if (slider.pointerId) {
+						slider.viewport.get(0).setPointerCapture(slider.pointerId);
+					}
 				}
 
 				// bind a "touchmove" event to the viewport
@@ -1056,7 +1058,7 @@ BxSlider 4.1.9
 			slider.viewport.off('MSPointerCancel pointercancel', onPointerCancel);
 			slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove);
 			slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd);
-			if (slider.viewport.get(0).releasePointerCapture) {
+			if (slider.viewport.get(0).releasePointerCapture && slider.pointerId) {
 				slider.viewport.get(0).releasePointerCapture(slider.pointerId);
 			}
 		}
@@ -1152,7 +1154,7 @@ BxSlider 4.1.9
 			}
 			slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd);
 			slider.viewport.off('MSPointerCancel pointercancel', onPointerCancel);
-			if (slider.viewport.get(0).releasePointerCapture) {
+			if (slider.viewport.get(0).releasePointerCapture && slider.pointerId) {
 				slider.viewport.get(0).releasePointerCapture(slider.pointerId);
 			}
 		}
