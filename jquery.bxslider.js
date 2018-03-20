@@ -575,7 +575,7 @@ BxSlider 4.1.9
 					el.css('-' + slider.cssPrefix + '-transition-timing-function', 'linear');
 					el.css(slider.animProp, propValue);
 					// bind a callback method - executes when CSS transition completes
-					el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+					el.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
 						// unbind the callback
 						el.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
 						// reset the position
@@ -1039,12 +1039,12 @@ BxSlider 4.1.9
 				}
 
 				// bind a "touchmove" event to the viewport
-				slider.viewport.bind('touchmove MSPointerMove pointermove', onTouchMove);
+				slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove);
 				// bind a "touchend" event to the viewport
-				slider.viewport.bind('touchend MSPointerUp pointerup', onTouchEnd);
+				slider.viewport.on('touchend MSPointerUp pointerup', onTouchEnd);
 
 				// bind a "pointercancel" event to the viewport for windows phone devices
-				slider.viewport.bind('MSPointerCancel pointercancel', onPointerCancel);
+				slider.viewport.on('MSPointerCancel pointercancel', onPointerCancel);
 			}
 		}
 
