@@ -329,7 +329,7 @@ BxSlider 4.1.9
 			// check for any updates to the controls (like hideControlOnEnd updates)
 			if (slider.settings.controls) updateDirectionControls();
 			// if touchEnabled is true, setup the touch events
-			if (slider.settings.touchEnabled && !slider.settings.ticker) initTouch();
+			if (slider.settings.touchEnabled && !slider.settings.ticker) { initTouch(); }
 		}
 
 		/**
@@ -1031,11 +1031,9 @@ BxSlider 4.1.9
 				slider.touch.start.x = touchPoints[0].pageX;
 				slider.touch.start.y = touchPoints[0].pageY;
 
-				if (slider.viewport.get(0).setPointerCapture) {
+				if (e.target.setPointerCapture) {
 					slider.pointerId = orig.pointerId;
-					if (slider.pointerId) {
-						slider.viewport.get(0).setPointerCapture(slider.pointerId);
-					}
+					e.target.setPointerCapture(slider.pointerId);
 				}
 
 				// bind a "touchmove" event to the viewport
