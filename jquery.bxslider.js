@@ -1031,10 +1031,13 @@ BxSlider 4.1.9
 				slider.touch.start.x = touchPoints[0].pageX;
 				slider.touch.start.y = touchPoints[0].pageY;
 
-				if (e.target.setPointerCapture) {
+				/*
+				//commented out as it makes links inside slider not clickable in latest version of Chrome browser
+				if (slider.viewport.get(0).setPointerCapture) {
 					slider.pointerId = orig.pointerId;
-					e.target.setPointerCapture(slider.pointerId);
+					slider.viewport.get(0).setPointerCapture(slider.pointerId);
 				}
+				*/
 
 				// bind a "touchmove" event to the viewport
 				slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove);
